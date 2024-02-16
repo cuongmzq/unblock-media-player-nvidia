@@ -1,1 +1,2 @@
-gcc -fshort-wchar -Os -s -o mpc-hc64.exe main.c
+g++ -DUNICODE -std=c11 -Os -s -o mpc-hc64.exe main.c
+pause

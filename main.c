@@ -1,9 +1,8 @@
-#include <unistd.h>
-// #include <stdio.h>
+#include <stdio.h>
+// #include <fcntl.h>
 #include <windows.h>
-// #include <string.h>
-// #include <wchar.h>
 #include <locale.h>
+
 /*
 1. Get parameters
 2. Get working dir
@@ -11,13 +10,14 @@
 
 */
 
-int main(int argc, char **argv)
+
+int main(int argc, const char **argv)
 {
   setlocale(LC_ALL, "");
-  
+  // _setmode(_fileno(stdout), _O_U16TEXT);
 
   LPTSTR cmd = (LPTSTR)GetCommandLine();
-  size_t len = strlen(cmd);
+  size_t len = wcslen(cmd);
 
   char* PREFIX = "start \"\" "; //required empty quotes to close console upon open
 
@@ -25,7 +25,6 @@ int main(int argc, char **argv)
   char offset = 0;
 
   char prefix_length = strlen(PREFIX);
-
 
   len = len + prefix_length + 1 + 1; //new_cmd length
 
@@ -61,10 +60,6 @@ int main(int argc, char **argv)
     }
   }
 
-  system(new_cmd);
-  // printf("(%s)", new_cmd);
-
-  // getchar();
-
+  _wsystem(new_cmd);
   return 0;
 }
