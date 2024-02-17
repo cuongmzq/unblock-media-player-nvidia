@@ -9,14 +9,14 @@
 3.
 
 */
-
+int windows_systemW(wchar_t* cmd);
 
 int main(int argc, const char **argv)
 {
   setlocale(LC_ALL, "");
   // _setmode(_fileno(stdout), _O_U16TEXT);
 
-  LPTSTR cmd = (LPTSTR)GetCommandLine();
+  wchar_t* cmd = (wchar_t*)GetCommandLine();
   size_t len = wcslen(cmd);
 
   char* PREFIX = "start \"\" "; //required empty quotes to close console upon open
@@ -28,7 +28,7 @@ int main(int argc, const char **argv)
 
   len = len + prefix_length + 1 + 1; //new_cmd length
 
-  LPTSTR new_cmd = (LPTSTR)malloc(sizeof(TCHAR) * (len));
+  wchar_t* new_cmd = (wchar_t*)malloc(sizeof(TCHAR) * (len));
   *(new_cmd + len - 1) = L'\0';
 
   for (size_t i = 0; i < len; ++i)
@@ -40,7 +40,7 @@ int main(int argc, const char **argv)
     else
     {
       if (offset == 0) {
-        LPTSTR current_character = cmd + i - prefix_length;
+        wchar_t* current_character = cmd + i - prefix_length;
         is_exe =  *current_character == '.' && 
                   *(current_character + 1) == 'e' && 
                   *(current_character + 2) == 'x' && 
@@ -61,5 +61,6 @@ int main(int argc, const char **argv)
   }
 
   _wsystem(new_cmd);
+
   return 0;
 }
