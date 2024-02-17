@@ -9,7 +9,6 @@
 3.
 
 */
-int windows_systemW(wchar_t* cmd);
 
 int main(int argc, const char **argv)
 {
